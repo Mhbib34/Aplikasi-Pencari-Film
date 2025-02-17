@@ -6,7 +6,7 @@ export default function FormSearch() {
         type="text"
         name="search-input"
         placeholder="Search here..."
-        className="focus:outline-none  placeholder:text-white p-1 rounded-md px-2 w-full text-white "
+        className="focus:outline-none placeholder:text-white p-1 rounded-md px-2 w-full text-white "
       />
     </div>
   );
