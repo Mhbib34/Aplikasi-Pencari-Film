@@ -1,34 +1,66 @@
 import Card from "../components/Fragments/Card";
 import SearchBar from "../components/layout/SearchBar";
 import { useState, useEffect } from "react";
+
 export default function Main() {
   const [data, setData] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [query, setQuery] = useState("Transformers");
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
+    if (!query) return;
+
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch(
-          `http://www.omdbapi.com/?apikey=99aca4ec&s=Transformers`
+          `http://www.omdbapi.com/?apikey=99aca4ec&s=${query}`
         );
-        if (!response) {
-          throw new Error("Filed to get data!");
+        if (!response.ok) {
+          throw new Error("Failed to get data!");
         }
         const data = await response.json();
-        setData(data.Search);
+        setData(data.Search || []);
       } catch (error) {
-        console.log(error);
+        console.error(error);
+        setData([]);
+      } finally {
+        setIsLoading(false);
       }
     };
-    fetchData();
-  }, []);
+
+    const delayDebounce = setTimeout(() => {
+      fetchData();
+    }, 500);
+
+    return () => clearTimeout(delayDebounce);
+  }, [query]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setQuery(inputValue);
+  }
+
+  function handleChange(e) {
+    setInputValue(e.target.value);
+  }
+
   return (
     <div>
-      <SearchBar />
+      <SearchBar onSubmit={handleSubmit} onChange={handleChange} />
       <div className="mt-10 flex flex-wrap justify-between gap-5 lg:px-20 px-5">
-        {data.map((item, index) => {
-          if (item.Poster !== "N/A") {
-            return <Card item={item} key={index} />;
-          }
-        })}
+        {isLoading ? (
+          <div className="w-full flex justify-center">
+            <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-blue-500 border-solid border-r-transparent"></div>
+          </div>
+        ) : data.length > 0 ? (
+          data.map((item, index) => <Card key={index} item={item} />)
+        ) : (
+          <div className="w-full flex justify-center">
+            <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-blue-500 border-solid border-r-transparent"></div>
+          </div>
+        )}
       </div>
     </div>
   );
