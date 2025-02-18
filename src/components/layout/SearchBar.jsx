@@ -9,6 +9,7 @@ export default function SearchBar({ onChange, onSubmit }) {
         type="button"
         text="Search"
         className="bg-secondary hover:opacity-80 transition-all duration-200 ease-in"
+        onClick={onSubmit}
       />
     </div>
   );

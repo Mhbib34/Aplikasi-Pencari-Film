@@ -51,13 +51,13 @@ export default function Main() {
       <SearchBar onSubmit={handleSubmit} onChange={handleChange} />
       <div className="mt-10 flex flex-wrap justify-between gap-5 lg:px-20 px-5">
         {isLoading ? (
-          <div className="w-full flex justify-center">
+          <div className="w-full flex h-screen justify-center items-center">
             <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-blue-500 border-solid border-r-transparent"></div>
           </div>
         ) : data.length > 0 ? (
           data.map((item, index) => <Card key={index} item={item} />)
         ) : (
-          <div className="w-full flex justify-center">
+          <div className="w-full flex h-screen justify-center items-center">
             <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-blue-500 border-solid border-r-transparent"></div>
           </div>
         )}
