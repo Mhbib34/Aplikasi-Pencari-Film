@@ -15,7 +15,7 @@ export default function Card({ item }) {
       <Button
         type="button"
         text="Detail"
-        className="bg-secondary w-full opacity-80 hover:opacity-100 transition-all duration-200 ease-in"
+        className="bg-secondary w-full opacity-80 hover:opacity-100 transition-all duration-200 ease-in p-1"
         onClick={() => handleClick(item.imdbID)}
       />
     </div>

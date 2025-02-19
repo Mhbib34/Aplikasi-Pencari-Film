@@ -35,12 +35,12 @@ export default function DetailMovie() {
     );
   }
   return (
-    <div className="flex flex-col lg:px-20 p-5 gap-10 ">
+    <div className="flex flex-col lg:px-20 p-5 py-10 gap-10 ">
       <div className="lg:flex gap-2 items-center">
         <div className="flex justify-center lg:w-[50%]">
-          <img src={detailMovie.Poster} alt="" className="lg:w-64 w-56 l" />
+          <img src={detailMovie.Poster} alt="" className="lg:w-96 w-56 " />
         </div>
-        <div className="text-justify lg:w-[50%] lg:flex lg:flex-col lg:gap-2 mt-5">
+        <div className="text-justify lg:w-[50%] lg:flex lg:flex-col lg:gap-2 mt-5 lg:text-2xl">
           <span>{detailMovie.Plot}</span>
           <div className="flex flex-col gap-2 mt-5">
             <div className="flex gap-1 items-center">
@@ -65,17 +65,17 @@ export default function DetailMovie() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col lg:flex-row gap-2">
         <Button
           type="button"
           text="Add to watch list"
-          className="bg-secondary w-full"
+          className="bg-secondary w-full lg:py-3 py-2"
         />
-        <Link to="/">
+        <Link to="/" className="lg:w-full">
           <Button
             type="button"
             text="Back to home"
-            className="bg-primary text-secondary w-full"
+            className="bg-primary text-secondary w-full lg:py-3 py-2"
           />
         </Link>
       </div>
