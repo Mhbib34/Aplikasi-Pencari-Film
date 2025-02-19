@@ -35,7 +35,7 @@ export default function DetailMovie() {
     );
   }
   return (
-    <div className="flex flex-col lg:px-20 p-5 py-10 gap-10 ">
+    <div className="flex flex-col lg:px-20 p-5 py-10 gap-10 h-screen justify-between ">
       <div className="lg:flex gap-2 items-center">
         <div className="flex justify-center lg:w-[50%]">
           <img src={detailMovie.Poster} alt="" className="lg:w-96 w-56 " />

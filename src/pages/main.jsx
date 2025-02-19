@@ -49,7 +49,7 @@ export default function Main() {
   return (
     <div>
       <SearchBar onSubmit={handleSubmit} onChange={handleChange} />
-      <div className="mt-10 flex flex-wrap justify-between gap-5 lg:px-20 px-5">
+      <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 lg:gap-14 lg:px-20 px-5">
         {isLoading ? (
           <div className="w-full flex h-screen justify-center items-center">
             <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-blue-500 border-solid border-r-transparent"></div>
