@@ -11,8 +11,8 @@ export default function WatchList() {
 
   function handleRemoveItem(imdbID) {
     Swal.fire({
-      title: "Deleted Item",
-      text: "Are you sure you want to delete the item?",
+      title: "Deleted Movie",
+      text: "Are you sure you want to delete the movie?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#bab8f3",
@@ -23,7 +23,7 @@ export default function WatchList() {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Success",
-          text: "Item deleted Successfully",
+          text: "Movie deleted Successfully",
           icon: "success",
           iconColor: "#bab8f3",
           confirmButtonColor: "#bab8f3",
@@ -35,52 +35,90 @@ export default function WatchList() {
       }
     });
   }
+
+  function handleRemoveAllItem() {
+    Swal.fire({
+      title: "Deleted All Movies",
+      text: "Are you sure you want to delete all movies?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#bab8f3",
+      cancelButtonColor: "#2b2b2b",
+      confirmButtonText: "Deleted",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Success",
+          text: "All Movies deleted Successfully",
+          icon: "success",
+          iconColor: "#bab8f3",
+          confirmButtonColor: "#bab8f3",
+          confirmButtonText: "Close",
+        });
+        setWatchList([]);
+        localStorage.setItem("watchList", JSON.stringify([]));
+      }
+    });
+  }
+
   return (
     <div className="px-5 lg:px-20 py-14 flex gap-3 flex-col">
-      <div className="">
+      <div className="flex gap-3">
         <Link to="/">
           <Button
             text="Home"
             className="py-1 bg-primary text-secondary px-4 border-secondary border shadow-[2px_2px_2px_rgba(0,0,0,1)]"
           />
         </Link>
+        <Button
+          text="Delete All Movies"
+          onClick={handleRemoveAllItem}
+          className="py-1 bg-secondary text-primary px-4 border-primary border shadow-[2px_2px_2px_rgba(0,0,0,1)]"
+        />
       </div>
       <div className="flex flex-col lg:flex-row gap-5 lg:flex-wrap justify-between">
-        {watchList.map((item, index) => (
-          <div
-            key={index}
-            className="flex gap-4 lg:flex-col lg:w-60  lg:h-auto h-44 border shadow-[2px_2px_2px_rgba(0,0,0,1)] items-center "
-          >
-            <div className="w-[50%] lg:h-[65%] lg:w-full h-full ">
-              <img
-                src={item.Poster}
-                alt={item.Title}
-                className="w-full h-full"
-              />
-            </div>
-            <div className="flex flex-col w-[50%] lg:h-[35%] lg:justify-between  lg:w-full justify-between h-full py-2 gap-2 px-2 lg:items-center">
-              <span className="text-sm font-medium lg:text-lg lg:text-center">
-                {item.Title.substring(0, 30)}
-                {"..."}
-              </span>
-              <span className="text-sm font-medium">{item.Genre}</span>
-              <span className="font-medium">⭐{item.imdbRating}</span>
-              <div className="flex w-full justify-between lg:justify-center lg:gap-2">
-                <Button
-                  type="button"
-                  text="Done!"
-                  className="bg-primary text-secondary py-1 lg:w-[40%]"
-                />
-                <Button
-                  type="button"
-                  text="Deleted"
-                  className="bg-secondary text-primary py-1 lg:w-[40%]"
-                  onClick={() => handleRemoveItem(item.imdbID)}
+        {watchList.length > 0 ? (
+          watchList.map((item, index) => (
+            <div
+              key={index}
+              className="flex gap-4 lg:flex-col lg:w-60  lg:h-auto h-44 border shadow-[2px_2px_2px_rgba(0,0,0,1)] items-center "
+            >
+              <div className="w-[50%] lg:h-[65%] lg:w-full h-full ">
+                <img
+                  src={item.Poster}
+                  alt={item.Title}
+                  className="w-full h-full"
                 />
               </div>
+              <div className="flex flex-col w-[50%] lg:h-[35%] lg:justify-between  lg:w-full justify-between h-full py-2 gap-2 px-2 lg:items-center">
+                <span className="text-sm font-medium lg:text-lg lg:text-center">
+                  {item.Title.substring(0, 30)}
+                  {"..."}
+                </span>
+                <span className="text-sm font-medium">{item.Genre}</span>
+                <span className="font-medium">⭐{item.imdbRating}</span>
+                <div className="flex w-full justify-between lg:justify-center lg:gap-2">
+                  <Button
+                    type="button"
+                    text="Done!"
+                    className="bg-primary text-secondary py-1 lg:w-[40%]"
+                  />
+                  <Button
+                    type="button"
+                    text="Deleted"
+                    className="bg-secondary text-primary py-1 lg:w-[40%]"
+                    onClick={() => handleRemoveItem(item.imdbID)}
+                  />
+                </div>
+              </div>
             </div>
+          ))
+        ) : (
+          <div className="w-full text-center mt-10">
+            <span className="font-medium">Your Watch List Still Empty 😑</span>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

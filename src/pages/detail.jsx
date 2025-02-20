@@ -46,13 +46,22 @@ export default function DetailMovie() {
         draft.push(detailMovie);
       }
     });
-    Swal.fire({
-      title: "Success!",
-      text: "Flim Added Successfully",
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      },
+    });
+    Toast.fire({
       icon: "success",
       iconColor: "#bab8f3",
-      confirmButtonColor: "#bab8f3",
-      confirmButtonText: "Close",
+      title: "Item Added Successfully",
     });
   }
 
