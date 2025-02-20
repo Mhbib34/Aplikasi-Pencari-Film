@@ -20,13 +20,13 @@ export default function WatchList() {
                 className="w-full h-full"
               />
             </div>
-            <div className="flex flex-col w-[50%] lg:h-[35%] lg:justify-between  lg:w-full justify-between h-full py-2 gap-2 px-1 lg:items-center">
+            <div className="flex flex-col w-[50%] lg:h-[35%] lg:justify-between  lg:w-full justify-between h-full py-2 gap-2 px-2 lg:items-center">
               <span className="text-sm font-medium lg:text-lg lg:text-center">
                 {item.Title}
               </span>
               <span className="text-sm font-medium">{item.Genre}</span>
               <span className="font-medium">⭐{item.imdbRating}</span>
-              <div className="flex gap-2 w-full justify-center">
+              <div className="flex w-full justify-between lg:justify-center lg:gap-2">
                 <Button
                   type="button"
                   text="Done!"
