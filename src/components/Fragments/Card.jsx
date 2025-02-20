@@ -3,7 +3,7 @@ import Button from "../common/Button";
 export default function Card({ item }) {
   function handleClick(imdbID) {
     const newTabUrl = `/detail/${imdbID}`;
-    window.open(newTabUrl, "_blank", "noopener, noreferrer");
+    window.open(newTabUrl, "_self");
   }
   return (
     <div className="border shadow-[2px_2px_2px_rgba(0,0,0,1)] flex flex-col gap-2 items-center justify-between p-2 rounded-md md:w-max xs:w-[155px] xxs:w-[140px] lg:w-56">

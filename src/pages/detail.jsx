@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Button from "../components/common/Button";
+import { useImmer } from "use-immer";
+
 export default function DetailMovie() {
   const { imdbID } = useParams();
-  const [detailMovie, setDetailMovie] = useState([]);
+  const [detailMovie, setDetailMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [items, setItems] = useImmer(() => {
+    const storedWatchlist = JSON.parse(localStorage.getItem("watchList")) || [];
+    return storedWatchlist;
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,16 +23,30 @@ export default function DetailMovie() {
           throw new Error("Failed to get data!");
         }
         const data = await response.json();
-        setDetailMovie(data || []);
+        setDetailMovie(data || {});
       } catch (error) {
         console.error(error);
-        setDetailMovie([]);
+        setDetailMovie({});
       } finally {
         setIsLoading(false);
       }
     };
     fetchData();
-  }, []);
+  }, [imdbID]);
+
+  useEffect(() => {
+    localStorage.setItem("watchList", JSON.stringify(items));
+  }, [items]);
+
+  function handleAddWatchList(e) {
+    e.preventDefault();
+    setItems((draft) => {
+      if (!draft.some((movie) => movie.imdbID === detailMovie.imdbID)) {
+        draft.push(detailMovie);
+      }
+    });
+  }
+
   if (isLoading) {
     return (
       <div className="w-full flex h-screen justify-center items-center">
@@ -34,11 +54,16 @@ export default function DetailMovie() {
       </div>
     );
   }
+
   return (
-    <div className="flex flex-col lg:px-20 p-5 py-10 gap-10 h-screen justify-between ">
+    <div className="flex flex-col lg:px-20 p-5 py-10 gap-10 h-screen justify-between">
       <div className="lg:flex gap-2 items-center">
         <div className="flex justify-center lg:w-[50%]">
-          <img src={detailMovie.Poster} alt="" className="lg:w-96 w-56 " />
+          <img
+            src={detailMovie.Poster}
+            alt={detailMovie.Title}
+            className="lg:w-96 w-56"
+          />
         </div>
         <div className="text-justify lg:w-[50%] lg:flex lg:flex-col lg:gap-2 mt-5 lg:text-2xl">
           <span>{detailMovie.Plot}</span>
@@ -70,6 +95,7 @@ export default function DetailMovie() {
           type="button"
           text="Add to watch list"
           className="bg-secondary w-full lg:py-3 py-2"
+          onClick={handleAddWatchList}
         />
         <Link to="/" className="lg:w-full">
           <Button
