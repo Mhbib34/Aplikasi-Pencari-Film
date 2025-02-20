@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Button from "../components/common/Button";
 import { useImmer } from "use-immer";
+import Swal from "sweetalert2";
 
 export default function DetailMovie() {
   const { imdbID } = useParams();
@@ -44,6 +45,14 @@ export default function DetailMovie() {
       if (!draft.some((movie) => movie.imdbID === detailMovie.imdbID)) {
         draft.push(detailMovie);
       }
+    });
+    Swal.fire({
+      title: "Success!",
+      text: "Flim Added Successfully",
+      icon: "success",
+      iconColor: "#bab8f3",
+      confirmButtonColor: "#bab8f3",
+      confirmButtonText: "Close",
     });
   }
 
