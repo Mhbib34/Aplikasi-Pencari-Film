@@ -51,7 +51,7 @@ export default function DetailMovie() {
       toast: true,
       position: "top-end",
       showConfirmButton: false,
-      timer: 3000,
+      timer: 2000,
       timerProgressBar: true,
       didOpen: (toast) => {
         toast.onmouseenter = Swal.stopTimer;
@@ -61,7 +61,7 @@ export default function DetailMovie() {
     Toast.fire({
       icon: "success",
       iconColor: "#bab8f3",
-      title: "Item Added Successfully",
+      title: "Movie Added Successfully",
     });
   }
 
