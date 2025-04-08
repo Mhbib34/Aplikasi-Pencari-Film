@@ -18,7 +18,7 @@ export default function DetailMovie() {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `http://www.omdbapi.com/?apikey=99aca4ec&i=${imdbID}`
+          `https://www.omdbapi.com/?apikey=99aca4ec&i=${imdbID}`
         );
         if (!response.ok) {
           throw new Error("Failed to get data!");

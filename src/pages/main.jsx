@@ -15,7 +15,7 @@ export default function Main() {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `http://www.omdbapi.com/?apikey=99aca4ec&s=${query}`
+          `https://www.omdbapi.com/?apikey=99aca4ec&s=${query}`
         );
         if (!response.ok) {
           throw new Error("Failed to get data!");

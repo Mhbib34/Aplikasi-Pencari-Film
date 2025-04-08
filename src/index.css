@@ -5,3 +5,9 @@
   --breakpoint-xxs: 340px;
   --breakpoint-xs: 380px;
 }
+html {
+  scroll-behavior: smooth;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
